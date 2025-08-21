@@ -71,7 +71,7 @@ class ExampleNode(DataNode):
         self.add_parameter(
             Parameter(
                 name="random_float",
-                tooltip="Random float between 0 and integer slider",
+                tooltip="Random float between 0 and integer slider value",
                 type=ParameterTypeBuiltin.FLOAT.value,
                 allowed_modes={ParameterMode.OUTPUT},
                 ui_options={
@@ -92,6 +92,9 @@ class ExampleNode(DataNode):
             self.parameter_output_values["reversed_text"] = reversed_words
         else:
             self.parameter_output_values["reversed_text"] = ""
+
+        # set the dropdown output parameter
+        self.parameter_output_values["dropdown"] = dropdown
 
         # Calculate random float
         import random
