@@ -25,7 +25,7 @@ class VideoUrlArtifact(UrlArtifact):
         self.media_type = "video"
 
 
-class ExtractLastFrame(DataNode):
+class OldExtractLastFrame(DataNode):
     def __init__(self, **kwargs) -> None:
         super().__init__(**kwargs)
         
@@ -126,14 +126,15 @@ class ExtractLastFrame(DataNode):
         try:
             # Use ffmpeg to extract the last frame
             # -sseof -1: seek to 1 second before end of file (must come before -i)
-            # -vframes 1: extract only 1 frame
+            # -vsync 0: extract only 1 frame
             # -f image2: output as image format
             # -update 1: overwrite output file if it exists
             cmd = [
                 "ffmpeg",
-                "-sseof", "-1",            # Seek to 1 second before end (BEFORE input)
+                "-sseof", "-3",            # Seek to 3 second before end (BEFORE input)
                 "-i", video_url,           # Input video URL
-                "-vframes", "1",           # Extract 1 frame
+                "-vsync", "0",             # Extract 1 frame
+                "-q:v", "0",               # Set quality to 0 (highest quality)
                 "-f", "image2",            # Output as image
                 "-update", "1",            # Overwrite existing file
                 "-y",                      # Overwrite output file without asking

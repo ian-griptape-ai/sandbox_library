@@ -51,7 +51,6 @@ class SaveAudio(ControlNode):
                 allowed_modes={ParameterMode.INPUT, ParameterMode.PROPERTY, ParameterMode.OUTPUT},
                 default_value=DEFAULT_FILENAME,
                 tooltip="The output filename with extension (.mp3, .wav, etc.). Note that the audio is not transcoded, so the extension should match the original format.",
-                traits={Button(button_type="save")},
             )
         )
 
