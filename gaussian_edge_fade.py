@@ -1,10 +1,11 @@
+import asyncio
 from typing import Any, Dict
 from PIL import Image, ImageFilter, ImageDraw
 import numpy as np
 
 from griptape.artifacts import ImageUrlArtifact
 from griptape_nodes.exe_types.core_types import Parameter, ParameterMode, ParameterTypeBuiltin
-from griptape_nodes.exe_types.node_types import BaseNode, DataNode
+from griptape_nodes.exe_types.node_types import BaseNode, DataNode, AsyncResult
 from griptape_nodes.traits.options import Options
 from griptape_nodes.traits.slider import Slider
 from griptape_nodes_library.utils.image_utils import (
@@ -192,7 +193,20 @@ class GaussianEdgeFade(DataNode):
         
         return super().after_value_set(parameter, value)
 
-    def process(self) -> None:
+    def process(self) -> AsyncResult[None]:
+        """Non-blocking entry point for Griptape engine."""
+        yield lambda: self._process_sync()
+
+    def _process_sync(self) -> None:
+        """Synchronous wrapper that runs async code."""
+        loop = asyncio.new_event_loop()
+        asyncio.set_event_loop(loop)
+        try:
+            loop.run_until_complete(self._process_async())
+        finally:
+            loop.close()
+
+    async def _process_async(self) -> None:
         """Process the image to apply edge fade."""
         input_image = self.get_parameter_value("input_image")
         if input_image is None:
