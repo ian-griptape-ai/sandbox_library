@@ -14,8 +14,8 @@ Applies Gaussian-blurred alpha channel fade to image edges for smooth compositin
 
 **Parameters:**
 - **fade_mode**: Choose between "percentage" (relative to image size) or "pixels" (absolute distance)
-- **fade_distance**: How far from the edge to fade (default: 5.0)
-- **blur_radius**: Gaussian blur strength for smooth transitions (0-100, default: 10.0)
+- **fade_distance**: How far from the edge to fade (default: 5)
+- **blur_radius**: Gaussian blur strength for smooth transitions (0-100, default: 10)
 - **fade_curve**: Shape of transparency transition (0.5-4.0, default: 2.0)
   - 1.0 = linear fade
   - >1.0 = more transparent near edges (aggressive fade)

@@ -55,13 +55,13 @@ class GaussianEdgeFade(DataNode):
         self.add_parameter(
             Parameter(
                 name="fade_distance",
-                input_types=["float"],
-                type="float",
-                output_type="float",
-                tooltip="Distance from edge to fade (5.0 = 5% of image dimension in percentage mode, or 5 pixels in pixel mode)",
-                default_value=5.0,
+                input_types=["int"],
+                type="int",
+                output_type="int",
+                tooltip="Distance from edge to fade (5 = 5% of image dimension in percentage mode, or 5 pixels in pixel mode)",
+                default_value=5,
                 allowed_modes={ParameterMode.INPUT, ParameterMode.PROPERTY, ParameterMode.OUTPUT},
-                traits={Slider(min_val=0.0, max_val=50.0)},
+                traits={Slider(min_val=0, max_val=50)},
             )
         )
 
@@ -69,13 +69,13 @@ class GaussianEdgeFade(DataNode):
         self.add_parameter(
             Parameter(
                 name="blur_radius",
-                input_types=["float"],
-                type="float",
-                output_type="float",
+                input_types=["int"],
+                type="int",
+                output_type="int",
                 tooltip="Gaussian blur radius for smooth edge transition (higher = softer fade)",
-                default_value=10.0,
+                default_value=10,
                 allowed_modes={ParameterMode.INPUT, ParameterMode.PROPERTY, ParameterMode.OUTPUT},
-                traits={Slider(min_val=0.0, max_val=100.0)},
+                traits={Slider(min_val=0, max_val=100)},
             )
         )
 
@@ -184,11 +184,11 @@ class GaussianEdgeFade(DataNode):
             fade_distance_param = self.get_parameter_by_name("fade_distance")
             if fade_distance_param:
                 if value == "percentage":
-                    fade_distance_param.tooltip = "Distance from edge to fade as percentage of image dimension (e.g., 5.0 = 5%)"
-                    fade_distance_param.traits = {Slider(min_val=0.0, max_val=50.0)}
+                    fade_distance_param.tooltip = "Distance from edge to fade as percentage of image dimension (e.g., 5 = 5%)"
+                    fade_distance_param.traits = {Slider(min_val=0, max_val=50)}
                 else:  # pixels
-                    fade_distance_param.tooltip = "Distance from edge to fade in pixels (e.g., 50.0 = 50 pixels)"
-                    fade_distance_param.traits = {Slider(min_val=0.0, max_val=500.0)}
+                    fade_distance_param.tooltip = "Distance from edge to fade in pixels (e.g., 50 = 50 pixels)"
+                    fade_distance_param.traits = {Slider(min_val=0, max_val=500)}
         
         return super().after_value_set(parameter, value)
 
@@ -237,8 +237,8 @@ class GaussianEdgeFade(DataNode):
         self,
         image_artifact: ImageUrlArtifact,
         fade_mode: str,
-        fade_distance: float,
-        blur_radius: float,
+        fade_distance: int,
+        blur_radius: int,
         fade_curve: float,
         edge_shape: str,
         replace_mask: bool,

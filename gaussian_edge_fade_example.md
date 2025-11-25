@@ -13,8 +13,8 @@ The GaussianEdgeFade node applies a Gaussian-blurred alpha channel mask to image
 **Configuration:**
 - **input_image**: Your source image
 - **fade_mode**: "percentage"
-- **fade_distance**: 10.0 (10% of image dimension)
-- **blur_radius**: 15.0
+- **fade_distance**: 10 (10% of image dimension)
+- **blur_radius**: 15
 - **fade_curve**: 2.0 (stays more transparent near edges)
 - **edge_shape**: "rounded"
 - **replace_mask**: False (preserves any existing transparency)
@@ -34,8 +34,8 @@ The GaussianEdgeFade node applies a Gaussian-blurred alpha channel mask to image
 **Configuration:**
 - **input_image**: Your source image
 - **fade_mode**: "percentage"
-- **fade_distance**: 10.0 (10% of image dimension)
-- **blur_radius**: 15.0
+- **fade_distance**: 10 (10% of image dimension)
+- **blur_radius**: 15
 - **fade_curve**: 2.0
 - **edge_shape**: "square"
 - **apply_top**: True
@@ -54,8 +54,8 @@ The GaussianEdgeFade node applies a Gaussian-blurred alpha channel mask to image
 **Configuration:**
 - **input_image**: Your source image
 - **fade_mode**: "pixels"
-- **fade_distance**: 50.0 (50 pixels from edge)
-- **blur_radius**: 20.0
+- **fade_distance**: 50 (50 pixels from edge)
+- **blur_radius**: 20
 - **fade_curve**: 2.0
 - **edge_shape**: "square"
 - **apply_top**: True
@@ -74,8 +74,8 @@ The GaussianEdgeFade node applies a Gaussian-blurred alpha channel mask to image
 **Configuration:**
 - **input_image**: Portrait photo
 - **fade_mode**: "percentage"
-- **fade_distance**: 5.0 (5% of image dimension)
-- **blur_radius**: 25.0 (high blur for very soft transition)
+- **fade_distance**: 5 (5% of image dimension)
+- **blur_radius**: 25 (high blur for very soft transition)
 - **fade_curve**: 2.5 (very aggressive - maximum transparency at edges)
 - **edge_shape**: "rounded"
 - **apply_top**: True
@@ -94,8 +94,8 @@ The GaussianEdgeFade node applies a Gaussian-blurred alpha channel mask to image
 **Configuration:**
 - **input_image**: Product photo
 - **fade_mode**: "pixels"
-- **fade_distance**: 30.0
-- **blur_radius**: 5.0 (low blur for sharper transition)
+- **fade_distance**: 30
+- **blur_radius**: 5 (low blur for sharper transition)
 - **fade_curve**: 1.0 (linear transition)
 - **edge_shape**: "square"
 - **apply_top**: True
@@ -114,8 +114,8 @@ The GaussianEdgeFade node applies a Gaussian-blurred alpha channel mask to image
 **Configuration:**
 - **input_image**: Text overlay image
 - **fade_mode**: "pixels"
-- **fade_distance**: 20.0
-- **blur_radius**: 10.0
+- **fade_distance**: 20
+- **blur_radius**: 10
 - **fade_curve**: 0.7 (gentle curve - less transparency at edges)
 - **edge_shape**: "rounded"
 - **replace_mask**: False
@@ -135,8 +135,8 @@ The GaussianEdgeFade node applies a Gaussian-blurred alpha channel mask to image
 **Configuration:**
 - **input_image**: PNG with existing transparency (e.g., logo with transparent background)
 - **fade_mode**: "percentage"
-- **fade_distance**: 8.0
-- **blur_radius**: 12.0
+- **fade_distance**: 8
+- **blur_radius**: 12
 - **fade_curve**: 2.0
 - **edge_shape**: "rounded"
 - **replace_mask**: False (combines with existing alpha)
@@ -156,8 +156,8 @@ The GaussianEdgeFade node applies a Gaussian-blurred alpha channel mask to image
 **Configuration:**
 - **input_image**: Image with messy or partial transparency
 - **fade_mode**: "percentage"
-- **fade_distance**: 10.0
-- **blur_radius**: 15.0
+- **fade_distance**: 10
+- **blur_radius**: 15
 - **fade_curve**: 2.0
 - **edge_shape**: "rounded"
 - **replace_mask**: True (ignores existing alpha channel)
