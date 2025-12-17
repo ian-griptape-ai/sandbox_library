@@ -4,42 +4,26 @@ from typing import Any
 
 from griptape.artifacts import ImageArtifact, ImageUrlArtifact
 
-from griptape_nodes.exe_types.core_types import Parameter, ParameterList, ParameterMode, ParameterTypeBuiltin
+from griptape_nodes.exe_types.core_types import Parameter, ParameterMode, ParameterTypeBuiltin
 from griptape_nodes.exe_types.node_types import DataNode
 
 
 class ParameterListInputDebug(DataNode):
-    """Debug node for testing ParameterList behavior with various list inputs."""
+    """Debug node that summarizes an untyped list input."""
 
     def __init__(self, name: str, metadata: dict[Any, Any] | None = None) -> None:
         super().__init__(name, metadata)
 
-        # Untyped ParameterList (no input_types) - should accept generic "list" inputs.
+        # Untyped list input (INPUT-only) - this should be provided via connection.
         self.add_parameter(
-            ParameterList(
-                name="untyped_items",
-                tooltip="Untyped ParameterList (no input_types). Connect a generic list here.",
-                default_value=[],
-                allowed_modes={ParameterMode.INPUT, ParameterMode.PROPERTY},
-                ui_options={"display_name": "Untyped Items"},
-            )
-        )
-
-        # Typed ParameterList - explicitly supports image artifacts and list variants.
-        self.add_parameter(
-            ParameterList(
-                name="typed_items",
-                tooltip="Typed ParameterList (image artifacts + list variants).",
-                input_types=[
-                    "ImageArtifact",
-                    "ImageUrlArtifact",
-                    "list",
-                    "list[ImageArtifact]",
-                    "list[ImageUrlArtifact]",
-                ],
-                default_value=[],
-                allowed_modes={ParameterMode.INPUT, ParameterMode.PROPERTY},
-                ui_options={"display_name": "Typed Items"},
+            Parameter(
+                name="items",
+                tooltip="Untyped list input. Connect a list to this parameter.",
+                type="list",
+                input_types=["list"],
+                default_value=None,
+                allowed_modes={ParameterMode.INPUT},
+                ui_options={"display_name": "Items", "hide_property": True},
             )
         )
 
@@ -54,15 +38,18 @@ class ParameterListInputDebug(DataNode):
         )
 
     def process(self) -> None:
-        untyped_items = self.get_parameter_list_value("untyped_items")
-        typed_items = self.get_parameter_list_value("typed_items")
+        items = self.get_parameter_value("items")
+        if items is None:
+            self.parameter_output_values["summary"] = "items: 0 item(s)"
+            return
+
+        if not isinstance(items, list):
+            self.parameter_output_values["summary"] = f"items: expected list, got {type(items).__name__}"
+            return
 
         lines: list[str] = []
-        lines.append(f"untyped_items: {len(untyped_items)} item(s)")
-        lines.extend(self._format_items(untyped_items))
-        lines.append("")
-        lines.append(f"typed_items: {len(typed_items)} item(s)")
-        lines.extend(self._format_items(typed_items))
+        lines.append(f"items: {len(items)} item(s)")
+        lines.extend(self._format_items(items))
 
         self.parameter_output_values["summary"] = "\n".join(lines)
 
