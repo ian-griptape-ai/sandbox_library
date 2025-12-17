@@ -4,7 +4,7 @@ from typing import Any
 
 from griptape.artifacts import ImageArtifact, ImageUrlArtifact
 
-from griptape_nodes.exe_types.core_types import Parameter, ParameterMode, ParameterTypeBuiltin
+from griptape_nodes.exe_types.core_types import Parameter, ParameterList, ParameterMode, ParameterTypeBuiltin
 from griptape_nodes.exe_types.node_types import DataNode
 
 
@@ -16,11 +16,9 @@ class ParameterListInputDebug(DataNode):
 
         # Untyped list input (INPUT-only) - this should be provided via connection.
         self.add_parameter(
-            Parameter(
+            ParameterList(
                 name="items",
                 tooltip="Untyped list input. Connect a list to this parameter.",
-                type="list",
-                input_types=["list"],
                 default_value=None,
                 allowed_modes={ParameterMode.INPUT},
                 ui_options={"display_name": "Items", "hide_property": True},
